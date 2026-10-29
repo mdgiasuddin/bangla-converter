@@ -316,6 +316,12 @@
             refresh();
             return;
         }
+        if (!mod && /^[0-9]$/.test(e.key)) {                 // digits become Bengali digits (০-৯); paste is never converted
+            e.preventDefault();
+            const d = '০১২৩৪৫৬৭৮৯'[+e.key];
+            if (comp) finish(d); else insertText(d);           // resolve the active word first, if any
+            return;
+        }
         if (!mod && comp && /^[\^:]$/.test(e.key)) {         // ^ = chandrabindu, : = visarga, inside a word only
             e.preventDefault();
             roman += e.key;

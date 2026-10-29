@@ -100,16 +100,17 @@ Use capital `O` when you always want ো: `bhalObashi` → ভালোবাশ
 
 ### Signs and punctuation
 
-| Type    | Bengali   | Notes                                                                  |
-|---------|-----------|------------------------------------------------------------------------|
-| `ng`    | ং         | anusvara, e.g. `bangla` → বাংলা                                           |
-| `^`     | ঁ          | chandrabindu, e.g. `ca^d` → চাঁদ                                         |
-| `:`     | ঃ         | visarga, e.g. `du:kho`                                                 |
-| `.`     | ।         | full stop; typed right after a word it resolves the word and inserts । |
-| `` ` `` | (nothing) | break: stops two letters from combining                                |
+| Type    | Bengali   | Notes                                                                                                 |
+|---------|-----------|-------------------------------------------------------------------------------------------------------|
+| `ng`    | ং         | anusvara, e.g. `bangla` → বাংলা                                                                          |
+| `^`     | ঁ          | chandrabindu, e.g. `ca^d` → চাঁদ                                                                        |
+| `:`     | ঃ         | visarga, e.g. `du:kho`                                                                                |
+| `.`     | ।         | full stop; typed right after a word it resolves the word and inserts ।                                |
+| `` ` `` | (nothing) | break: stops two letters from combining                                                               |
+| `0`–`9` | ০–৯       | Digits are typed as Bengali digits and resolve the active word first. Pasted text is never converted. |
 
-`^` and `:` belong to the word only while a word is active. A standalone `:` or `^` stays as typed. Digits and other
-punctuation also stay as typed in the editor, and they resolve the active word first.
+`^` and `:` belong to the word only while a word is active. A standalone `:` or `^` stays as typed. Other punctuation
+stays as typed and resolves the active word first.
 
 ### Special rules
 
