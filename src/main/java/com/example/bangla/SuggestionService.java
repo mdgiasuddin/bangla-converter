@@ -122,7 +122,7 @@ public class SuggestionService {
                 new ClassPathResource("dictionary.txt").getInputStream(), StandardCharsets.UTF_8))) {
             List<Entry> list = new ArrayList<>();
             r.lines().map(String::trim).filter(s -> !s.isEmpty()).forEach(line -> {
-                String[] parts = line.split("\\s+");              // word [alias alias ...]
+                String[] parts = line.split("\\s+");              // word [alias ...]
                 Set<String> aliases = new HashSet<>();
                 for (int i = 1; i < parts.length; i++) aliases.add(parts[i].toLowerCase());
                 list.add(new Entry(parts[0], aliases));
