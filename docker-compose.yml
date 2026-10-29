@@ -1,0 +1,23 @@
+services:
+  web:
+    build:
+      context: .
+      args:
+        MVN_ARGS: "-DskipTests"      # set to "" to run the tests while building
+    image: bangla-converter:1.0.0
+    container_name: bangla-converter
+    ports:
+      - "9095:9095"     # change the public port with APP_PORT=9090 docker compose up ...
+    environment:
+      JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=75 -Dfile.encoding=UTF-8"
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "wget", "-q", "--spider", "http://localhost:9095/" ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 512m

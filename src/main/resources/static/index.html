@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Phonetic Bengali editor</title>
+    <style>
+        :root {
+            --bg: #fff;
+            --ink: #1d2523;
+            --mute: #7a8683;
+            --line: #cfd6d3;
+            --acc: #0b6b5a;
+            --accbg: #e6f3ef
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #161e1c;
+                --ink: #e6eeeb;
+                --mute: #8da09b;
+                --line: #2f413d;
+                --acc: #4fc3a8;
+                --accbg: #1f3a34
+            }
+        }
+
+        html, body {
+            margin: 0;
+            height: 100%;
+            background: var(--bg);
+            color: var(--ink)
+        }
+
+        #ed {
+            position: fixed;
+            inset: 0;
+            overflow: auto;
+            padding: 18px 22px;
+            outline: none;
+            box-sizing: border-box;
+            font: 14px/1.8 "Noto Sans Bengali", "Kalpurush", system-ui, sans-serif;
+            white-space: pre-wrap;
+            word-break: break-word
+        }
+
+        #ed:empty::before {
+            content: attr(data-ph);
+            color: var(--mute)
+        }
+
+        #ed::after {
+            content: "\200b"
+        }
+
+        /* lets a trailing newline show an empty last line */
+        .comp {
+            background: var(--accbg);
+            border-bottom: 2px solid var(--acc)
+        }
+
+        #pop {
+            position: fixed;
+            z-index: 10;
+            min-width: 130px;
+            max-width: 90vw;
+            background: var(--bg);
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, .18);
+            font: 14px/1.4 "Noto Sans Bengali", system-ui, sans-serif
+        }
+
+        #pop[hidden] {
+            display: none
+        }
+
+        #cand {
+            list-style: none;
+            margin: 0;
+            padding: 3px;
+            max-height: 238px;
+            overflow: auto
+        }
+
+        #cand li {
+            padding: 3px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            white-space: nowrap
+        }
+
+        #cand li.sel {
+            background: var(--acc);
+            color: #fff
+        }
+
+        #pop .hint {
+            padding: 3px 10px;
+            border-top: 1px solid var(--line);
+            color: var(--mute);
+            font-size: 11px
+        }
+    </style>
+</head>
+<body>
+<div id="ed" contenteditable="true" spellcheck="false" autofocus
+     data-ph="Type phonetically, e.g.  ami bhalo achi   (↑ ↓ to choose, Space/Enter to confirm)"></div>
+<div id="pop" hidden>
+    <ul id="cand" role="listbox"></ul>
+    <div class="hint">↑ ↓ choose · Space / Enter confirm · Esc keep Roman</div>
+</div>
+<script>
+    const $ = id => document.getElementById(id);
+    const ed = $('ed'), pop = $('pop'), cand = $('cand');
+    ed.contentEditable = 'plaintext-only';
+    if (ed.contentEditable !== 'plaintext-only') ed.contentEditable = 'true';
+
+    const cache = {};                      // roman word -> candidate list (from the Spring Boot API)
+    let roman = '';                        // letters of the ACTIVE word (kept in sync with key presses)
+    let comp = null;                       // {span, list, sel, moved, key} while a word is active
+
+    // Remembered choices: roman word -> chosen Bengali word
+    let prefs = {};
+    try {
+        prefs = JSON.parse(localStorage.getItem('bnPrefs') || '{}');
+    } catch (e) {
+    }
+    const savePrefs = () => {
+        try {
+            localStorage.setItem('bnPrefs', JSON.stringify(prefs));
+        } catch (e) {
+        }
+    };
+
+    async function fetchC(w) {
+        if (!cache[w]) cache[w] = (await (await fetch('/api/candidates?word=' + encodeURIComponent(w))).json()).candidates;
+    }
+
+    const listFor = w => (prefs[w] && !cache[w].includes(prefs[w])) ? [prefs[w], ...cache[w]] : cache[w];
+
+    /* ---------- caret helpers ---------- */
+    function setCaret(range) {
+        const s = getSelection();
+        s.removeAllRanges();
+        s.addRange(range);
+    }
+
+    function setCaretOffset(off) {                         // caret at a character offset of the whole text
+        const w = document.createTreeWalker(ed, NodeFilter.SHOW_TEXT);
+        let n, acc = 0;
+        while ((n = w.nextNode())) {
+            if (acc + n.length >= off) {
+                const r = document.createRange();
+                r.setStart(n, off - acc);
+                r.collapse(true);
+                return setCaret(r);
+            }
+            acc += n.length;
+        }
+        const r = document.createRange();
+        r.selectNodeContents(ed);
+        r.collapse(false);
+        setCaret(r);
+    }
+
+    function insertText(t) {                               // plain insertion at the caret, replaces a selection
+        const s = getSelection();
+        let r = s.rangeCount && ed.contains(s.getRangeAt(0).startContainer) ? s.getRangeAt(0) : null;
+        if (!r) {
+            r = document.createRange();
+            r.selectNodeContents(ed);
+            r.collapse(false);
+        }
+        r.deleteContents();
+        const n = document.createTextNode(t);
+        r.insertNode(n);
+        const off = (() => {
+            const q = document.createRange();
+            q.selectNodeContents(ed);
+            q.setEnd(n, n.length);
+            return q.toString().length;
+        })();
+        ed.normalize();
+        setCaretOffset(off);
+    }
+
+    /* ---------- the active word ---------- */
+    function startComp() {
+        const s = getSelection();
+        let r = s.rangeCount ? s.getRangeAt(0) : null;
+        if (!r || !ed.contains(r.startContainer)) {
+            r = document.createRange();
+            r.selectNodeContents(ed);
+            r.collapse(false);
+        }
+        if (!r.collapsed) r.deleteContents();                // typing over a selection replaces it
+        const span = document.createElement('span');
+        span.className = 'comp';
+        r.insertNode(span);
+        comp = {span, list: [], sel: 0, moved: false, key: null};
+    }
+
+    function setSpan(text) {
+        comp.span.textContent = text;
+        const r = document.createRange();
+        r.selectNodeContents(comp.span);
+        r.collapse(false);
+        setCaret(r);
+    }
+
+    function refresh() {
+        const w = roman, c = cache[w];
+        if (!c) {                                            // not loaded yet: show the letters, fetch in the background
+            comp.list = [];
+            comp.key = null;
+            setSpan(w);
+            drawPop();
+            fetchC(w).then(() => {
+                if (comp && roman === w) refresh();
+            }).catch(() => {
+            });
+            return;
+        }
+        if (comp.key !== w) {                                // new word text: start from the remembered choice
+            comp.key = w;
+            comp.list = listFor(w);
+            comp.sel = prefs[w] ? Math.max(0, comp.list.indexOf(prefs[w])) : 0;
+            comp.moved = false;
+        }
+        setSpan(comp.list[comp.sel]);
+        drawPop();
+    }
+
+    function move(d) {
+        if (!comp.list.length) return;
+        comp.sel = (comp.sel + d + comp.list.length) % comp.list.length;
+        comp.moved = true;
+        setSpan(comp.list[comp.sel]);
+        drawPop();
+    }
+
+    function commit(text) {                                // resolve the active word into plain text
+        if (!comp) return;
+        const w = roman;
+        const t = text ?? (comp.list.length ? comp.list[comp.sel] : w);
+        if (text === undefined && comp.moved && comp.list.length) {
+            prefs[w] = t;
+            savePrefs();
+        }   // remember a deliberate pick
+        const tn = document.createTextNode(t);
+        comp.span.replaceWith(tn);
+        const q = document.createRange();
+        q.selectNodeContents(ed);
+        q.setEnd(tn, tn.length);
+        const off = q.toString().length;
+        ed.normalize();
+        setCaretOffset(off);
+        comp = null;
+        roman = '';
+        pop.hidden = true;
+    }
+
+    async function finish(ch) {                            // Space / Enter / full stop: resolve, then type the character
+        const w = roman;
+        if (!cache[w]) {
+            try {
+                await fetchC(w);
+            } catch (e) {
+            }
+        }
+        if (!comp) return;
+        refresh();
+        commit();
+        insertText(ch);
+    }
+
+    /* ---------- suggestion popup ---------- */
+    function drawPop() {
+        if (!comp || !comp.list.length) {
+            pop.hidden = true;
+            return;
+        }
+        cand.replaceChildren(...comp.list.map((c, i) => {
+            const li = document.createElement('li');
+            li.textContent = c;
+            if (i === comp.sel) li.className = 'sel';
+            li.onmousedown = e => {
+                e.preventDefault();
+                comp.sel = i;
+                comp.moved = true;
+                commit();
+            };
+            return li;
+        }));
+        pop.hidden = false;
+        const rs = comp.span.getClientRects(), r = rs.length ? rs[rs.length - 1] : comp.span.getBoundingClientRect();
+        pop.style.left = Math.max(4, Math.min(r.left, innerWidth - pop.offsetWidth - 8)) + 'px';
+        let top = r.bottom + 4;
+        if (top + pop.offsetHeight > innerHeight - 8) top = Math.max(8, r.top - pop.offsetHeight - 4);
+        pop.style.top = top + 'px';
+        const el = cand.children[comp.sel];
+        if (el) el.scrollIntoView({block: 'nearest'});
+    }
+
+    ed.addEventListener('scroll', () => comp && drawPop());
+
+    /* ---------- keyboard ---------- */
+    ed.addEventListener('keydown', e => {
+        if (e.isComposing || e.key === 'Process') return;
+        const mod = e.ctrlKey || e.metaKey || e.altKey;
+        if (!mod && /^[A-Za-z`]$/.test(e.key)) {             // a phonetic letter: goes into the active word
+            e.preventDefault();
+            if (!comp) startComp();
+            roman += e.key;
+            refresh();
+            return;
+        }
+        if (!mod && comp && /^[\^:]$/.test(e.key)) {         // ^ = chandrabindu, : = visarga, inside a word only
+            e.preventDefault();
+            roman += e.key;
+            refresh();
+            return;
+        }
+        if (!comp) {                                         // no active word: normal editing (Backspace, arrows, Delete...)
+            if (e.key === 'Enter' && !mod) {
+                e.preventDefault();
+                insertText('\n');
+            }
+            return;
+        }
+        switch (e.key) {
+            case 'Shift':
+            case 'Control':
+            case 'Alt':
+            case 'Meta':
+            case 'CapsLock':
+                return;
+            case 'ArrowDown':
+                e.preventDefault();
+                move(1);
+                return;
+            case 'ArrowUp':
+                e.preventDefault();
+                move(-1);
+                return;
+            case 'Backspace':                                  // inside the active word: drop one Roman letter
+                e.preventDefault();
+                roman = roman.slice(0, -1);
+                if (!roman) commit(''); else {
+                    comp.key = null;
+                    refresh();
+                }
+                return;
+            case 'Escape':
+                e.preventDefault();
+                commit(roman);
+                return;      // keep the Roman letters
+            case ' ':
+                e.preventDefault();
+                finish(' ');
+                return;
+            case 'Enter':
+                e.preventDefault();
+                finish('\n');
+                return;
+            case '.':
+                e.preventDefault();
+                finish('।');
+                return;
+            default:
+                commit();                                 // any other key resolves the word, then does its normal job
+        }
+    });
+
+    /* ---------- paste, mouse, focus: no conversion at all ---------- */
+    ed.addEventListener('paste', e => {
+        e.preventDefault();
+        if (comp) commit();
+        insertText((e.clipboardData || window.clipboardData).getData('text/plain'));   // exactly as copied, any language
+    });
+    ed.addEventListener('mousedown', () => commit());
+    ed.addEventListener('blur', () => commit());
+    ed.focus();
+</script>
+</body>
+</html>
