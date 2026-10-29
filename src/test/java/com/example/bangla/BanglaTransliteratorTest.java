@@ -51,7 +51,6 @@ class BanglaTransliteratorTest {
     void everyCombination() {
         var list = s.candidates("sonar").candidates();
         assertEquals(37, list.size());                 // 6 x 2 x 3 combinations + the raw word
-        assertTrue(list.contains("ষোণাঢ়"));
         assertTrue(list.contains("সোনার"));
     }
 

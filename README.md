@@ -62,14 +62,18 @@ sounds from small letters (`t` is ত, `T` is ট).
 
 ### Conjuncts with their own keys
 
-| Type  | Bengali | Example        |
-|-------|---------|----------------|
-| `ksh` | ক্ষ       | `ksho`         |
-| `GG`  | জ্ঞ       | `GGan` → জ্ঞান    |
-| `nj`  | ঞ্জ       | `gonj` → গঞ্জ    |
-| `njh` | ঞ্ঝ       | `jhonjha` → ঝঞ্ঝা |
-| `nc`  | ঞ্চ       |                |
-| `nch` | ঞ্ছ       |                |
+| Type   | Bengali | Example          |
+|--------|---------|------------------|
+| `ksh`  | ক্ষ       | `ksho`           |
+| `GG`   | জ্ঞ       | `GGan` → জ্ঞান      |
+| `nj`   | ঞ্জ       | `gonj` → গঞ্জ      |
+| `njh`  | ঞ্ঝ       | `jhonjha` → ঝঞ্ঝা   |
+| `nc`   | ঞ্চ       |                  |
+| `nch`  | ঞ্ছ       |                  |
+| `ngg`  | ঙ্গ       | `banggali` → বাঙ্গালি |
+| `ngk`  | ঙ্ক       |                  |
+| `ngkh` | ঙ্খ       |                  |
+| `nggh` | ঙ্ঘ       |                  |
 
 Because these keys take priority, `nj` always gives ঞ্জ. To get a plain ন্জ, put a backtick between the letters:
 ``n`j``.
@@ -102,7 +106,7 @@ Use capital `O` when you always want ো: `bhalObashi` → ভালোবাশ
 
 | Type    | Bengali   | Notes                                                                                                 |
 |---------|-----------|-------------------------------------------------------------------------------------------------------|
-| `ng`    | ং         | anusvara, e.g. `bangla` → বাংলা                                                                          |
+| `ng`    | ং         | anusvara, e.g. `bangla` → বাংলা. Before a vowel it is the letter ঙ: `bangali` → বাঙালি                      |
 | `^`     | ঁ          | chandrabindu, e.g. `ca^d` → চাঁদ                                                                        |
 | `:`     | ঃ         | visarga, e.g. `du:kho`                                                                                |
 | `.`     | ।         | full stop; typed right after a word it resolves the word and inserts ।                                |
@@ -124,17 +128,19 @@ stays as typed and resolves the active word first.
 
 ### Examples
 
-| Type              | Result                                         |
-|-------------------|------------------------------------------------|
-| `ami bhalo achi`  | আমি ভালো আছি                                       |
-| `bangla`          | বাংলা                                             |
-| `kolom`           | কলম                                            |
-| `ca^d`            | চাঁদ                                             |
-| `gonj`            | গঞ্জ                                             |
-| `jhonjha`         | ঝঞ্ঝা                                             |
-| `GGan` or `jNGan` | জ্ঞান                                             |
-| `ryali`           | র‍্যালি                                             |
-| `sonar`           | সনার, with all combinations offered (see below) |
+| Type                     | Result                                         |
+|--------------------------|------------------------------------------------|
+| `ami bhalo achi`         | আমি ভালো আছি                                       |
+| `bangla`                 | বাংলা                                             |
+| `kolom`                  | কলম                                            |
+| `ca^d`                   | চাঁদ                                             |
+| `gonj`                   | গঞ্জ                                             |
+| `jhonjha`                | ঝঞ্ঝা                                             |
+| `GGan` or `jNGan`        | জ্ঞান                                             |
+| `ryali`                  | র‍্যালি                                             |
+| `bangali`                | বাঙালি (the list also offers বাঙ্গালি)                 |
+| `banggali` or `baNggali` | বাঙ্গালি                                            |
+| `sonar`                  | সনার, with all combinations offered (see below) |
 
 ## Suggestions
 
