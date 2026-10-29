@@ -1,5 +1,7 @@
 package com.example.bangla;
 
+import com.example.bangla.model.State;
+import com.example.bangla.model.Token;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,17 +13,19 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import static com.example.bangla.model.State.BREAK;
+import static com.example.bangla.model.State.CONSONANT;
+import static com.example.bangla.model.State.INHERENT;
+import static com.example.bangla.model.State.OTHER;
+import static com.example.bangla.model.State.START;
+import static com.example.bangla.model.State.VOWEL;
+
 /**
  * Rule-based phonetic transliterator (Roman -> Bengali), Avro-style.
  * Longest-match-first scanning plus a small context state machine.
  */
 @Component
 public class BanglaTransliterator {
-
-    public record Token(String src, String out) {
-    }
-
-    private enum State {START, CONSONANT, INHERENT, VOWEL, OTHER, BREAK}
 
     private static final String HASANTA = "্";
     static final String DIGITS = "০১২৩৪৫৬৭৮৯";
@@ -33,7 +37,8 @@ public class BanglaTransliterator {
             "n", "ন", "p", "প", "ph", "ফ", "f", "ফ", "b", "ব", "bh", "ভ", "v", "ভ", "m", "ম", "z", "য",
             "r", "র", "l", "ল", "sh", "শ", "S", "ষ", "s", "স", "h", "হ", "R", "ড়", "Rh", "ঢ়", "y", "য়",
             "ksh", "ক্ষ", "t`", "ৎ",
-            "NG", "ঞ", "GG", "জ্ঞ", "nj", "ঞ্জ", "njh", "ঞ্ঝ", "nc", "ঞ্চ", "nch", "ঞ্ছ");
+            "NG", "ঞ", "GG", "জ্ঞ", "nj", "ঞ্জ", "njh", "ঞ্ঝ", "nc", "ঞ্চ", "nch", "ঞ্ছ",
+            "ngk", "ঙ্ক", "ngkh", "ঙ্খ", "ngg", "ঙ্গ", "nggh", "ঙ্ঘ");
 
     // Vowels: [independent form, vowel sign (kar)]
     static final Map<String, String[]> V = new HashMap<>();
@@ -81,7 +86,7 @@ public class BanglaTransliterator {
 
     public List<Token> tokenize(String s) {
         List<Token> toks = new ArrayList<>();
-        State st = State.START;
+        State st = START;
         boolean hasSign = false;   // word already contains a vowel sign
         int i = 0;
 
@@ -93,52 +98,55 @@ public class BanglaTransliterator {
                 char ch = s.charAt(i++);
                 String out = (ch >= '0' && ch <= '9') ? String.valueOf(DIGITS.charAt(ch - '0')) : String.valueOf(ch);
                 toks.add(new Token(String.valueOf(ch), out));
-                st = State.START;
+                st = START;
                 hasSign = false;
                 continue;
             }
             i += k.length();
+            String src = k;
+            // "ng" followed by a vowel is the letter ঙ (an anusvara cannot take a vowel sign)
+            if (k.equals("ng") && i < s.length() && "aeiouIOU".indexOf(s.charAt(i)) >= 0) k = "Ng";
             String out;
             State next;
 
             if (C.containsKey(k)) {                // consonant (+ hasanta if it follows a consonant)
-                if (k.equals("y") && st == State.CONSONANT) {
+                if (k.equals("y") && st == CONSONANT) {
                     // ya-phola (্য). After "r" a ZWJ keeps র from turning into a reph: র‍্য
                     out = ("r".equals(lastCons) ? "\u200D" : "") + HASANTA + "য";
                 } else {
-                    out = (st == State.CONSONANT ? HASANTA : "") + C.get(k);
+                    out = (st == CONSONANT ? HASANTA : "") + C.get(k);
                 }
-                next = State.CONSONANT;
+                next = CONSONANT;
                 lastCons = k;
             } else if (V.containsKey(k)) {         // vowel: sign after a consonant, else independent
-                out = V.get(k)[(st == State.CONSONANT || st == State.INHERENT) ? 1 : 0];
-                next = State.VOWEL;
+                out = V.get(k)[(st == CONSONANT || st == INHERENT) ? 1 : 0];
+                next = VOWEL;
                 hasSign = true;
             } else if (X.containsKey(k)) {
                 out = X.get(k);
-                next = State.OTHER;
+                next = OTHER;
             } else if (k.equals("`")) {            // explicit break
                 out = "";
-                next = State.BREAK;
+                next = BREAK;
             } else {                               // plain "o"
-                if (st == State.CONSONANT) {
+                if (st == CONSONANT) {
                     boolean atEnd = i >= s.length() || !Character.isLetter(s.charAt(i));
                     if (atEnd && hasSign) {
                         out = "ো";
-                        next = State.VOWEL;
+                        next = VOWEL;
                     } else {
                         out = "";
-                        next = State.INHERENT;
+                        next = INHERENT;
                     }
-                } else if (st == State.VOWEL) {
+                } else if (st == VOWEL) {
                     out = "ও";
-                    next = State.VOWEL;
+                    next = VOWEL;
                 } else {
                     out = "অ";
-                    next = State.VOWEL;
+                    next = VOWEL;
                 }
             }
-            toks.add(new Token(k, out));
+            toks.add(new Token(src, out));
             st = next;
         }
         return toks;

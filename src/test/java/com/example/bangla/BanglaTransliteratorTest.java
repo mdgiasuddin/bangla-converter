@@ -86,4 +86,14 @@ class BanglaTransliteratorTest {
     void fuzzyMatch() {
         assertTrue(s.suggest("shundor", 6).contains("সুন্দর"));
     }
+
+    @Test
+    void nga() {
+        assertEquals("বাঙালি", t.convert("bangali"));
+        assertEquals("বাঙ্গালি", t.convert("banggali"));
+        assertEquals("বাঙ্গালি", t.convert("baNggali"));
+        assertEquals("বাংলা", t.convert("bangla"));
+        var c = s.candidates("bangali").candidates();
+        assertTrue(c.contains("বাঙালি") && c.contains("বাঙ্গালি"));
+    }
 }

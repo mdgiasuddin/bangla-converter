@@ -1,5 +1,7 @@
 package com.example.bangla;
 
+import com.example.bangla.model.Candidates;
+import com.example.bangla.model.Entry;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
@@ -25,12 +27,6 @@ import java.util.regex.Pattern;
  */
 @Service
 public class SuggestionService {
-
-    public record Candidates(List<String> candidates, int defaultIndex) {
-    }
-
-    private record Entry(String word, Set<String> aliases) {
-    }
 
     private static final String S3 = "সশষ", N4 = "নণঙং", T3 = "তটৎ", D2 = "দড", R3 = "রড়ঢ়";
     private static final Map<String, String> CLS = BanglaTransliterator.map(

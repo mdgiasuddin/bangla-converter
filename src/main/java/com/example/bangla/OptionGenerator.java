@@ -37,6 +37,10 @@ public class OptionGenerator {
         g("ঞ্ঝ,ন্ঝ", "njh");
         g("ঞ্চ,ন্চ", "nc");
         g("ঞ্ছ,ন্ছ", "nch");                      // য় য
+        g("ঙ্ক,ংক", "ngk");
+        g("ঙ্খ,ংখ", "ngkh");
+        g("ঙ্গ,ংগ", "ngg");
+        g("ঙ্ঘ,ংঘ", "nggh");
     }
 
     // Vowel signs after a consonant. For "o" the first option is "" (inherent vowel)
@@ -92,8 +96,9 @@ public class OptionGenerator {
         boolean join = false;                                    // next consonant forms a conjunct
         for (int i = 0; i < toks.size(); i++) {
             String k = toks.get(i);
-            if (BanglaTransliterator.C.containsKey(k)) {
-                List<String> cons = consonantAlternatives(k);
+            boolean ngVowel = k.equals("ng") && i + 1 < toks.size() && isVowel(toks.get(i + 1));
+            if (BanglaTransliterator.C.containsKey(k) || ngVowel) {
+                List<String> cons = ngVowel ? new ArrayList<>(List.of("ঙ", "ঙ্গ")) : consonantAlternatives(k);
                 List<String> vows = List.of("");
                 boolean hasVowel = false;
                 if (i + 1 < toks.size() && isVowel(toks.get(i + 1))) {
