@@ -34,9 +34,9 @@ public class OptionGenerator {
         g("থ,ঠ", "th", "Th");
         g("দ,ড", "d", "D");
         g("ধ,ঢ", "dh", "Dh");
-        g("র,\u09DC,\u09DD", "r", "R", "Rh");   // র ড় ঢ়
+        g("র,ড়,ঢ়", "r", "R", "Rh");   // র ড় ঢ়
         g("জ,য", "j", "z");
-        g("\u09DF,য", "y");
+        g("য়,য", "y");
         g("খ,ক্ষ", "kh");
         g("ঞ,ঙ", "NG");
         g("জ্ঞ,গ্গ,গ্য", "gg");
@@ -123,7 +123,7 @@ public class OptionGenerator {
                     vows = Arrays.asList(SIGN.get(toks.get(++i)));
                     hasVowel = true;
                 }
-                if (join && k.equals("y")) cons = new ArrayList<>(List.of("য", "\u09DF"));   // ya-phola first
+                if (join && k.equals("y")) cons = new ArrayList<>(List.of("য", "য়"));   // ya-phola first
                 if (k.equals("r") && !hasVowel && i + 1 < toks.size() && toks.get(i + 1).equals("y")) {
                     cons = cons.stream().map(c -> c.equals("র") ? "র\u200D" : c).toList();    // র + ZWJ
                 }
