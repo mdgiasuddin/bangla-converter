@@ -28,7 +28,7 @@ public class OptionGenerator {
     private static final Map<String, String[]> GROUP = new HashMap<>();
 
     static {
-        g("স,শ,ষ", "s", "sh", "S");
+        g("স,শ,ষ,স্ব,স্ম", "s", "sh", "S");
         g("ন,ণ", "n", "N");
         g("ত,ট", "t", "T");
         g("থ,ঠ", "th", "Th");
@@ -39,7 +39,7 @@ public class OptionGenerator {
         g("\u09DF,য", "y");
         g("খ,ক্ষ", "kh");
         g("ঞ,ঙ", "NG");
-        g("জ্ঞ,গ্গ", "GG");
+        g("জ্ঞ,গ্গ,গ্য", "gg");
         g("ঞ্জ,ন্জ", "nj");
         g("ঞ্ঝ,ন্ঝ", "njh");
         g("ঞ্চ,ন্চ", "nc");
@@ -48,7 +48,17 @@ public class OptionGenerator {
         g("ঙ্খ,ংখ", "ngkh");
         g("ঙ্গ,ংগ", "ngg");
         g("ঙ্ঘ,ংঘ", "nggh");
-        g("ত্ম,ত্ব", "tt");
+        g("ক্ক,ক্ব,ক্য", "kk");
+        g("ক্ষ,খ্য", "kkh");
+        g("চ্চ,চ্য", "cc");
+        g("ত্ম,ত্ব,ত্য,ট্ট,ট্য", "tt");
+        g("ত্থ,থ্য,ঠ্য", "tth");
+        g("দ্দ,ড্ড,দ্য", "dd");
+        g("ন্ন,ন্ব,ন্য,ণ্য", "nn");
+        g("প্প,প্য", "pp");
+        g("ম্ম,ম্য", "mm");
+        g("ল্ল,ল্য", "ll");
+        g("শ্ব,শ্ম,ষ্ম,স্ম,স্ব", "ss");
     }
 
     // Vowel signs after a consonant. For "o" the first option is "" (inherent vowel)
