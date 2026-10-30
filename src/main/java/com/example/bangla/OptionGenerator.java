@@ -8,6 +8,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.bangla.BanglaTransliterator.C;
+import static com.example.bangla.BanglaTransliterator.DIGITS;
+import static com.example.bangla.BanglaTransliterator.V;
+import static com.example.bangla.BanglaTransliterator.X;
+import static com.example.bangla.BanglaTransliterator.matchAt;
+
 /**
  * Breaks a Roman word into syllable units and lists every alternative for each unit,
  * then combines them. "sonar" = [so][na][r]:
@@ -31,6 +37,7 @@ public class OptionGenerator {
         g("র,\u09DC,\u09DD", "r", "R", "Rh");   // র ড় ঢ়
         g("জ,য", "j", "z");
         g("\u09DF,য", "y");
+        g("খ,ক্ষ", "kh");
         g("ঞ,ঙ", "NG");
         g("জ্ঞ,গ্গ", "GG");
         g("ঞ্জ,ন্জ", "nj");
@@ -41,6 +48,7 @@ public class OptionGenerator {
         g("ঙ্খ,ংখ", "ngkh");
         g("ঙ্গ,ংগ", "ngg");
         g("ঙ্ঘ,ংঘ", "nggh");
+        g("ত্ম,ত্ব", "tt");
     }
 
     // Vowel signs after a consonant. For "o" the first option is "" (inherent vowel)
@@ -68,12 +76,12 @@ public class OptionGenerator {
     }
 
     private static boolean isVowel(String k) {
-        return BanglaTransliterator.V.containsKey(k) || k.equals("o");
+        return V.containsKey(k) || k.equals("o");
     }
 
     private static List<String> consonantAlternatives(String k) {
         List<String> out = new ArrayList<>();
-        out.add(BanglaTransliterator.C.get(k));                 // the engine's own choice first
+        out.add(C.get(k));                 // the engine's own choice first
         for (String alt : GROUP.getOrDefault(k, new String[0])) {
             if (!out.contains(alt)) out.add(alt);
         }
@@ -83,10 +91,10 @@ public class OptionGenerator {
     /**
      * One list of alternatives per syllable unit.
      */
-    List<List<String>> units(String s) {
+    private List<List<String>> units(String s) {
         List<String> toks = new ArrayList<>();
         for (int i = 0; i < s.length(); ) {
-            String k = BanglaTransliterator.matchAt(s, i);
+            String k = matchAt(s, i);
             if (k == null) k = String.valueOf(s.charAt(i));
             toks.add(k);
             i += k.length();
@@ -97,7 +105,7 @@ public class OptionGenerator {
         for (int i = 0; i < toks.size(); i++) {
             String k = toks.get(i);
             boolean ngVowel = k.equals("ng") && i + 1 < toks.size() && isVowel(toks.get(i + 1));
-            if (BanglaTransliterator.C.containsKey(k) || ngVowel) {
+            if (C.containsKey(k) || ngVowel) {
                 List<String> cons = ngVowel ? new ArrayList<>(List.of("ঙ", "ঙ্গ")) : consonantAlternatives(k);
                 List<String> vows = List.of("");
                 boolean hasVowel = false;
@@ -113,16 +121,16 @@ public class OptionGenerator {
                 List<String> alts = new ArrayList<>();
                 for (String v : vows) for (String c : cons) alts.add(pre + c + v);   // vowel-major
                 units.add(alts);
-                join = !hasVowel && i + 1 < toks.size() && BanglaTransliterator.C.containsKey(toks.get(i + 1));
+                join = !hasVowel && i + 1 < toks.size() && C.containsKey(toks.get(i + 1));
             } else {
                 join = false;
                 if (isVowel(k)) units.add(Arrays.asList(INDEP.get(k)));
                 else if (k.equals("ng")) units.add(List.of("ং", "ঙ"));
-                else if (BanglaTransliterator.X.containsKey(k)) units.add(List.of(BanglaTransliterator.X.get(k)));
+                else if (X.containsKey(k)) units.add(List.of(X.get(k)));
                 else if (!k.equals("`")) {
                     char ch = k.charAt(0);
                     units.add(List.of(k.length() == 1 && ch >= '0' && ch <= '9'
-                            ? String.valueOf(BanglaTransliterator.DIGITS.charAt(ch - '0')) : k));
+                            ? String.valueOf(DIGITS.charAt(ch - '0')) : k));
                 }
             }
         }
