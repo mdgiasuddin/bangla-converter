@@ -39,108 +39,8 @@ needed.
 
 ## English to Bengali character mapping
 
-Matching is **case-sensitive** and **longest match first**: `kh` is read as খ, not ক + হ. Capital letters are different
-sounds from small letters (`t` is ত, `T` is ট).
+Read the `guideline.md` file to see how the characters are mapped.
 
-### Consonants
-
-| Type | Bengali | Type    | Bengali | Type | Bengali |
-|------|---------|---------|---------|------|---------|
-| `k`  | ক       | `kh`    | খ       | `g`  | গ       |
-| `gh` | ঘ       | `Ng`    | ঙ       | `c`  | চ       |
-| `ch` | ছ       | `j`     | জ       | `jh` | ঝ       |
-| `NG` | ঞ       | `T`     | ট       | `Th` | ঠ       |
-| `D`  | ড       | `Dh`    | ঢ       | `N`  | ণ       |
-| `t`  | ত       | `th`    | থ       | `d`  | দ       |
-| `dh` | ধ       | `n`     | ন       | `p`  | প       |
-| `ph` | ফ       | `f`     | ফ       | `b`  | ব       |
-| `bh` | ভ       | `v`     | ভ       | `m`  | ম       |
-| `z`  | য       | `r`     | র       | `l`  | ল       |
-| `sh` | শ       | `S`     | ষ       | `s`  | স       |
-| `h`  | হ       | `R`     | ড়       | `Rh` | ঢ়       |
-| `y`  | য়       | ``t` `` | ৎ       |      |         |
-
-### Conjuncts with their own keys
-
-| Type   | Bengali | Example          |
-|--------|---------|------------------|
-| `ksh`  | ক্ষ       | `ksho`           |
-| `GG`   | জ্ঞ       | `GGan` → জ্ঞান      |
-| `nj`   | ঞ্জ       | `gonj` → গঞ্জ      |
-| `njh`  | ঞ্ঝ       | `jhonjha` → ঝঞ্ঝা   |
-| `nc`   | ঞ্চ       |                  |
-| `nch`  | ঞ্ছ       |                  |
-| `ngg`  | ঙ্গ       | `banggali` → বাঙ্গালি |
-| `ngk`  | ঙ্ক       |                  |
-| `ngkh` | ঙ্খ       |                  |
-| `nggh` | ঙ্ঘ       |                  |
-
-Because these keys take priority, `nj` always gives ঞ্জ. To get a plain ন্জ, put a backtick between the letters:
-``n`j``.
-
-### Vowels
-
-Each vowel has an **independent form** (at the start of a word, or after another vowel) and a **sign** (*kar*, attached
-to a consonant).
-
-| Type        | Independent | Sign | Type  | Independent | Sign |
-|-------------|-------------|------|-------|-------------|------|
-| `a`         | আ           | া    | `e`   | এ           | ে    |
-| `i`         | ই           | ি    | `oi`  | ঐ           | ৈ    |
-| `I` or `ee` | ঈ           | ী    | `O`   | ও           | ো    |
-| `u`         | উ           | ু     | `ou`  | ঔ           | ৌ    |
-| `U` or `oo` | ঊ           | ূ     | `rri` | ঋ           | ৃ     |
-
-The lowercase **`o`** depends on where it is:
-
-| Position                                                              | Result                                   | Example       |
-|-----------------------------------------------------------------------|------------------------------------------|---------------|
-| Start of a word                                                       | অ                                        | `ogni` → অগ্নি   |
-| After a vowel                                                         | ও                                        |               |
-| After a consonant                                                     | Nothing (the consonant's inherent sound) | `kolom` → কলম |
-| After a consonant, at the end of a word that already has a vowel sign | ো                                        | `bhalo` → ভালো  |
-
-Use capital `O` when you always want ো: `bhalObashi` → ভালোবাশি.
-
-### Signs and punctuation
-
-| Type    | Bengali   | Notes                                                                                                 |
-|---------|-----------|-------------------------------------------------------------------------------------------------------|
-| `ng`    | ং         | anusvara, e.g. `bangla` → বাংলা. Before a vowel it is the letter ঙ: `bangali` → বাঙালি                      |
-| `^`     | ঁ          | chandrabindu, e.g. `ca^d` → চাঁদ                                                                        |
-| `:`     | ঃ         | visarga, e.g. `du:kho`                                                                                |
-| `.`     | ।         | full stop; typed right after a word it resolves the word and inserts ।                                |
-| `` ` `` | (nothing) | break: stops two letters from combining                                                               |
-| `0`–`9` | ০–৯       | Digits are typed as Bengali digits and resolve the active word first. Pasted text is never converted. |
-
-`^` and `:` belong to the word only while a word is active. A standalone `:` or `^` stays as typed. Other punctuation
-stays as typed and resolves the active word first.
-
-### Special rules
-
-- **Conjuncts (যুক্তাক্ষর):** two consonants typed together are joined with a hasanta (্). `kk` → ক্ক, `nt` → ন্ত,
-  `stri` → স্ত্রি.
-- **Ya-phola:** `y` after a consonant is ্য, not য়. `kyaT` → ক্যাট.
-- **Ra with ya-phola:** `r` followed by `y` inserts an invisible joiner (ZWJ), so the র is not drawn as a reph.
-  `ryali` → র‍্যালি.
-- **Reph:** `r` before another consonant is joined with a hasanta, which fonts draw as a reph. `kormo` → কর্ম, `rk` →
-  র্ক.
-
-### Examples
-
-| Type                     | Result                                         |
-|--------------------------|------------------------------------------------|
-| `ami bhalo achi`         | আমি ভালো আছি                                       |
-| `bangla`                 | বাংলা                                             |
-| `kolom`                  | কলম                                            |
-| `ca^d`                   | চাঁদ                                             |
-| `gonj`                   | গঞ্জ                                             |
-| `jhonjha`                | ঝঞ্ঝা                                             |
-| `GGan` or `jNGan`        | জ্ঞান                                             |
-| `ryali`                  | র‍্যালি                                             |
-| `bangali`                | বাঙালি (the list also offers বাঙ্গালি)                 |
-| `banggali` or `baNggali` | বাঙ্গালি                                            |
-| `sonar`                  | সনার, with all combinations offered (see below) |
 
 ## Suggestions
 
@@ -153,23 +53,12 @@ For each active word the list is built in this order, with duplicates removed:
    gives না ণা, and `r` gives র ড় ঢ়, so 6 × 2 × 3 = 36 words.
 4. **The raw Roman word**, in case you want to keep English.
 
-### Adding words to the dictionary
-
-Edit `src/main/resources/dictionary.txt`: one Bengali word per line, optionally followed by extra Roman spellings.
-
-```
-জ্ঞান gyan gnan jnan
-চাঁদ chand chaand cand
-```
-
-Rebuild afterwards (`docker compose up -d --build`).
 
 ## API
 
 | Endpoint                                     | Returns                                                            |
 |----------------------------------------------|--------------------------------------------------------------------|
 | `GET /api/candidates?word=sona`              | `{"candidates":[...],"defaultIndex":0}`, the list the editor shows |
-| `GET /api/transliterate?text=ami bhalo achi` | `{"output":"আমি ভালো আছি","tokens":[...],"suggestions":[...]}`         |
 
 ## Project layout
 
