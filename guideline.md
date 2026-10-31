@@ -79,6 +79,7 @@ and the second is the alternate suggestion.
 | ঢ়       | `rh`        |                                                          |
 | য়       | `y`         |                                                          |
 | ৎ       | ``t` ``     | khanda-ta (backtick after `t`)                           |
+| ক্স       | `x`         |                                                          |
 
 ## 4. Signs and punctuation
 
