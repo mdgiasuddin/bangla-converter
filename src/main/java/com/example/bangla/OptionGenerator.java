@@ -28,13 +28,13 @@ public class OptionGenerator {
     private static final Map<String, String[]> GROUP = new HashMap<>();
 
     static {
-        g("স,শ,ষ,স্ব,স্ম", "s", "sh", "S");
-        g("ন,ণ", "n", "N");
-        g("ত,ট", "t", "T");
-        g("থ,ঠ", "th", "Th");
-        g("দ,ড,দ্ব", "d", "D");
-        g("ধ,ঢ", "dh", "Dh");
-        g("র,ড়,ঢ়", "r", "R", "Rh");   // র ড় ঢ়
+        g("স,শ,ষ,স্ব,স্ম", "s", "sh");
+        g("ন,ণ", "n");
+        g("ত,ট", "t");
+        g("থ,ঠ", "th");
+        g("দ,ড,দ্ব", "d");
+        g("ধ,ঢ", "dh");
+        g("র,ড়,ঢ়", "r", "rh");   // র ড় ঢ়
         g("জ,য", "j", "z");
         g("য়,য", "y");
         g("খ,ক্ষ", "kh");
@@ -70,7 +70,7 @@ public class OptionGenerator {
             Map.entry("oo", new String[]{"ূ", "ু"}), Map.entry("e", new String[]{"ে"}),
             Map.entry("oi", new String[]{"ৈ"}), Map.entry("ou", new String[]{"ৌ"}),
             Map.entry("O", new String[]{"ো"}), Map.entry("rri", new String[]{"ৃ"}),
-            Map.entry("o", new String[]{"", "ো"}));
+            Map.entry("Ri", new String[]{"ৃ"}), Map.entry("o", new String[]{"", "ো"}));
 
     // Independent vowels (word start, or after another vowel)
     private static final Map<String, String[]> INDEP = Map.ofEntries(
@@ -80,7 +80,7 @@ public class OptionGenerator {
             Map.entry("oo", new String[]{"ঊ", "উ"}), Map.entry("e", new String[]{"এ"}),
             Map.entry("oi", new String[]{"ঐ"}), Map.entry("ou", new String[]{"ঔ"}),
             Map.entry("O", new String[]{"ও"}), Map.entry("rri", new String[]{"ঋ"}),
-            Map.entry("o", new String[]{"অ", "ও"}));
+            Map.entry("Ri", new String[]{"ঋ"}), Map.entry("o", new String[]{"অ", "ও"}));
 
     private static void g(String csv, String... keys) {
         for (String k : keys) GROUP.put(k, csv.split(","));
