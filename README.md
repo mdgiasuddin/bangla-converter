@@ -39,7 +39,7 @@ needed.
 
 ## English to Bengali character mapping
 
-Read the `guideline.md` file to see how the characters are mapped.
+Read the `typing_guideline.md` file to see how the characters are mapped.
 
 
 ## Suggestions
