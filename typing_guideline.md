@@ -132,6 +132,7 @@ spelling, the next ones are alternates.
 | ঙ্গ, ংগ          | `ngg`          |
 | ঙ্ঘ, ংঘ          | `nggh`         |
 | চ্চ, চ্য          | `cc`           |
+| চ্ছ           | `cch`           |
 | জ, য          | `j`, `z`       |
 | জ্ঞ, গ্গ,গ্য,গ্ম      | `gg`           |
 | ঞ, ঙ          | `NG`           |
@@ -145,6 +146,7 @@ spelling, the next ones are alternates.
 | থ, ঠ          | `th`           |
 | দ, ড, দ্ব       | `d`            |
 | দ্দ, ড্ড, দ্য, দ্ব, ড্য | `dd`           |
+| দ্ধ, ধ্য, ঢ্য          | `ddh`           |
 | ধ, ঢ          | `dh`           |
 | ন, ণ          | `n`            |
 | ন্ন, ন্ব, ন্য, ণ্য    | `nn`           |
