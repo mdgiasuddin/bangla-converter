@@ -28,7 +28,7 @@ public class OptionGenerator {
     private static final Map<String, String[]> GROUP = new HashMap<>();
 
     static {
-        g("স,শ,ষ,স্ব,স্ম", "s", "sh");
+        g("স,শ,ষ", "s", "sh");
         g("ন,ণ", "n");
         g("ত,ট", "t");
         g("থ,ঠ", "th");
@@ -75,7 +75,7 @@ public class OptionGenerator {
 
     // Independent vowels (word start, or after another vowel)
     private static final Map<String, String[]> INDEP = Map.ofEntries(
-            Map.entry("a", new String[]{"আ", "অ"}), Map.entry("i", new String[]{"ই", "ঈ"}),
+            Map.entry("a", new String[]{"আ", "অ", "য়া"}), Map.entry("i", new String[]{"ই", "ঈ"}),
             Map.entry("I", new String[]{"ঈ", "ই"}), Map.entry("ee", new String[]{"ঈ", "ই"}),
             Map.entry("u", new String[]{"উ", "ঊ"}), Map.entry("U", new String[]{"ঊ", "উ"}),
             Map.entry("oo", new String[]{"ঊ", "উ"}), Map.entry("e", new String[]{"এ"}),

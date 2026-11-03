@@ -13,6 +13,7 @@ and the second is the alternate suggestion.
 |---------|-------------|-----------------|-----------------|
 | অ       | `o`         |                 | default for `o` |
 | আ       | `a`         | `o` → অ         |                 |
+| য়া       | `a`         |                 |                 |
 | ই       | `i`         |                 | alternate: ঈ    |
 | ঈ       | `I`, `ee`   |                 | alternate: ই    |
 | উ       | `u`         |                 | alternate: ঊ    |
@@ -132,7 +133,7 @@ spelling, the next ones are alternates.
 | ঙ্গ, ংগ          | `ngg`          |
 | ঙ্ঘ, ংঘ          | `nggh`         |
 | চ্চ, চ্য          | `cc`           |
-| চ্ছ           | `cch`           |
+| চ্ছ             | `cch`          |
 | জ, য          | `j`, `z`       |
 | জ্ঞ, গ্গ,গ্য,গ্ম      | `gg`           |
 | ঞ, ঙ          | `NG`           |
@@ -146,7 +147,7 @@ spelling, the next ones are alternates.
 | থ, ঠ          | `th`           |
 | দ, ড, দ্ব       | `d`            |
 | দ্দ, ড্ড, দ্য, দ্ব, ড্য | `dd`           |
-| দ্ধ, ধ্য, ঢ্য          | `ddh`           |
+| দ্ধ, ধ্য, ঢ্য       | `ddh`          |
 | ধ, ঢ          | `dh`           |
 | ন, ণ          | `n`            |
 | ন্ন, ন্ব, ন্য, ণ্য    | `nn`           |
@@ -157,7 +158,7 @@ spelling, the next ones are alternates.
 | র, ড়, ঢ়       | `r`, `rh`      |
 | ল্ল, ল্য          | `ll`           |
 | শ্ব, শ্ম, স্ম, স্ব    | `ss`           |
-| স, শ, ষ, স্ব, স্ম | `s`, `sh`      |
+| স, শ, ষ       | `s`, `sh`      |
 
 ---
 
