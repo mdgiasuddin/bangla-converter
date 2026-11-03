@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Giash::Keyboard</title>
+    <title>Phonetic Bengali editor</title>
     <style>
         :root {
             --bg: #fff;
@@ -36,12 +36,40 @@
             position: fixed;
             inset: 0;
             overflow: auto;
-            padding: 18px 22px;
+            padding: 40px 22px 18px;
             outline: none;
             box-sizing: border-box;
             font: 14px/1.8 "Noto Sans Bengali", "Kalpurush", system-ui, sans-serif;
             white-space: pre-wrap;
             word-break: break-word
+        }
+
+        #bar {
+            position: fixed;
+            top: 8px;
+            right: 16px;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font: 12px system-ui, sans-serif;
+            color: var(--mute)
+        }
+
+        #save {
+            font: inherit;
+            font-size: 13px;
+            padding: 4px 14px;
+            border: 1px solid var(--acc);
+            border-radius: 6px;
+            background: var(--bg);
+            color: var(--acc);
+            cursor: pointer
+        }
+
+        #save:hover {
+            background: var(--acc);
+            color: var(--bg)
         }
 
         #ed:empty::before {
@@ -106,6 +134,9 @@
 <body>
 <div id="ed" contenteditable="true" spellcheck="false" autofocus
      data-ph="Type phonetically, e.g.  ami bhalo achi   (↑ ↓ to choose, Space/Enter to confirm)"></div>
+<div id="bar"><span id="status"></span>
+    <button id="save" type="button" title="Save (Ctrl+S)">Save</button>
+</div>
 <div id="pop" hidden>
     <ul id="cand" role="listbox"></ul>
     <div class="hint">↑ ↓ choose · Space / Enter confirm · Esc keep Roman</div>
@@ -387,7 +418,63 @@
     });
     ed.addEventListener('mousedown', () => commit());
     ed.addEventListener('blur', () => commit());
+    /* ---------- save / restore (localStorage) ---------- */
+    const DOC_KEY = 'bnDoc', AUTOSAVE_MS = 2 * 60 * 1000;
+    const statusEl = $('status');
+    let dirty = false;
+
+    function save() {
+        try {
+            localStorage.setItem(DOC_KEY, ed.textContent);               // the full text, exactly as it is now
+            dirty = false;
+            statusEl.textContent = 'Saved ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+        } catch (e) {
+            statusEl.textContent = 'Could not save (storage full or blocked)';
+        }
+    }
+
+    // Any change to the text (typing, the active word, paste, delete) just raises a flag; nothing is read or written here
+    const watcher = new MutationObserver(() => {
+        if (!dirty) {
+            dirty = true;
+            statusEl.textContent = 'Unsaved changes';
+        }
+    });
+    watcher.observe(ed, {childList: true, characterData: true, subtree: true});
+
+    // Restore the last saved text when the page opens
+    try {
+        const saved = localStorage.getItem(DOC_KEY);
+        if (saved) {
+            ed.textContent = saved;
+            watcher.takeRecords();                                       // loading is not an edit
+            dirty = false;
+            statusEl.textContent = 'Restored';
+        }
+    } catch (e) {
+    }
+
+    $('save').addEventListener('mousedown', e => e.preventDefault()); // keep the caret and the active word where they are
+    $('save').addEventListener('click', save);
+    document.addEventListener('keydown', e => {                      // Ctrl/Cmd+S
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
+            e.preventDefault();
+            save();
+        }
+    });
+    setInterval(() => {
+        if (dirty) save();
+    }, AUTOSAVE_MS);          // every 2 minutes, only if something changed
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden && dirty) save();
+    });  // tab hidden or closed
+    window.addEventListener('pagehide', () => {
+        if (dirty) save();
+    });
+
     ed.focus();
+    setCaretOffset(ed.textContent.length);                           // caret at the end of the restored text
+    ed.scrollTop = ed.scrollHeight;
 </script>
 </body>
 </html>
