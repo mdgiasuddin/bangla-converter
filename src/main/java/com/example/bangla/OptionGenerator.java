@@ -69,7 +69,7 @@ public class OptionGenerator {
             Map.entry("I", new String[]{"ী", "ি"}), Map.entry("ee", new String[]{"ী", "ি"}),
             Map.entry("u", new String[]{"ু", "ূ"}), Map.entry("U", new String[]{"ূ", "ু"}),
             Map.entry("oo", new String[]{"ূ", "ু"}), Map.entry("e", new String[]{"ে"}),
-            Map.entry("oi", new String[]{"ৈ"}), Map.entry("ou", new String[]{"ৌ"}),
+            Map.entry("oi", new String[]{"ৈ", "ই", "োই"}), Map.entry("ou", new String[]{"ৌ", "উ", "োউ"}),
             Map.entry("O", new String[]{"ো"}), Map.entry("rri", new String[]{"ৃ"}),
             Map.entry("Ri", new String[]{"ৃ"}), Map.entry("o", new String[]{"", "ো"}));
 

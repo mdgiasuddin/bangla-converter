@@ -36,9 +36,9 @@ and the second is the alternate suggestion.
 | ূ                       | `U`, `oo`   | ু                |                               |
 | ৃ                       | `rri`, `Ri` |                 |                               |
 | ে                      | `e`         |                 |                               |
-| ৈ                      | `oi`        |                 |                               |
+| ৈ                      | `oi`        | ই, োই            |                               |
 | ো                      | `O`         | `o` (alternate) |                               |
-| ৌ                      | `ou`        |                 |                               |
+| ৌ                      | `ou`        | উ, োউ            |                               |
 
 ## 3. Consonants
 
@@ -161,6 +161,25 @@ spelling, the next ones are alternates.
 | স, শ, ষ       | `s`, `sh`      |
 
 ---
+
+## Some Special Words
+
+| Bengali word | English keys                   |
+|--------------|--------------------------------|
+| পাঁচ           | pac, pach                      | 
+| তাঁর           | tar                            |
+| তাঁরা           | tara                           |
+| চাঁদ           | cad, chad                      |
+| জ্ঞান           | gyan, gnan, jnan               |
+| মিঞা           | mia, miya                      |
+| ভূঁইয়া          | vuia, vuiya, bhuia, bhuiya     |
+| জ্যোৎস্না          | josna, josona, jochna, jochona |
+| স্মরণ          | soron                          |
+| স্বাধীন          | sadhin                         |
+| স্বাধীনতা         | sadhinota                      |
+| শ্মশান          | sosan                          |
+| স্মৃতি           | sriti                          |
+| সংগ্রাম          | songram, sonram                |
 
 ## Examples
 
