@@ -67,8 +67,8 @@ public class OptionGenerator {
     private static final Map<String, String[]> SIGN = Map.ofEntries(
             Map.entry("a", new String[]{"া"}), Map.entry("i", new String[]{"ি", "ী"}),
             Map.entry("I", new String[]{"ী", "ি"}), Map.entry("ee", new String[]{"ী", "ি"}),
-            Map.entry("u", new String[]{"ু", "ূ"}), Map.entry("U", new String[]{"ূ", "ু"}),
-            Map.entry("oo", new String[]{"ূ", "ু"}), Map.entry("e", new String[]{"ে"}),
+            Map.entry("u", new String[]{"ু", "ূ"}),
+            Map.entry("oo", new String[]{"ূ", "ু", "ও", "ৌ"}), Map.entry("e", new String[]{"ে"}),
             Map.entry("oi", new String[]{"ৈ", "ই", "োই"}), Map.entry("ou", new String[]{"ৌ", "উ", "োউ"}),
             Map.entry("O", new String[]{"ো"}), Map.entry("rri", new String[]{"ৃ"}),
             Map.entry("Ri", new String[]{"ৃ"}), Map.entry("o", new String[]{"", "ো"}));
@@ -77,11 +77,11 @@ public class OptionGenerator {
     private static final Map<String, String[]> INDEP = Map.ofEntries(
             Map.entry("a", new String[]{"আ", "অ", "য়া"}), Map.entry("i", new String[]{"ই", "ঈ"}),
             Map.entry("I", new String[]{"ঈ", "ই"}), Map.entry("ee", new String[]{"ঈ", "ই"}),
-            Map.entry("u", new String[]{"উ", "ঊ"}), Map.entry("U", new String[]{"ঊ", "উ"}),
-            Map.entry("oo", new String[]{"ঊ", "উ"}), Map.entry("e", new String[]{"এ"}),
-            Map.entry("oi", new String[]{"ঐ"}), Map.entry("ou", new String[]{"ঔ"}),
-            Map.entry("O", new String[]{"ও"}), Map.entry("rri", new String[]{"ঋ"}),
-            Map.entry("Ri", new String[]{"ঋ"}), Map.entry("o", new String[]{"অ", "ও"}));
+            Map.entry("u", new String[]{"উ", "ঊ"}), Map.entry("oo", new String[]{"ঊ", "উ"}),
+            Map.entry("e", new String[]{"এ"}), Map.entry("oi", new String[]{"ঐ"}),
+            Map.entry("ou", new String[]{"ঔ"}), Map.entry("O", new String[]{"ও"}),
+            Map.entry("rri", new String[]{"ঋ"}), Map.entry("Ri", new String[]{"ঋ"}),
+            Map.entry("o", new String[]{"অ", "ও"}));
 
     private static void g(String csv, String... keys) {
         for (String k : keys) GROUP.put(k, csv.split(","));

@@ -17,7 +17,7 @@ and the second is the alternate suggestion.
 | ই       | `i`         |                 | alternate: ঈ    |
 | ঈ       | `I`, `ee`   |                 | alternate: ই    |
 | উ       | `u`         |                 | alternate: ঊ    |
-| ঊ       | `U`, `oo`   |                 | alternate: উ    |
+| ঊ       | `oo`        |                 | alternate: উ    |
 | ঋ       | `rri`, `Ri` |                 |                 |
 | এ       | `e`         |                 |                 |
 | ঐ       | `oi`        |                 |                 |
@@ -33,7 +33,7 @@ and the second is the alternate suggestion.
 | ি                      | `i`         | ী               |                               |
 | ী                      | `I`, `ee`   | ি               |                               |
 | ু                       | `u`         | ূ                |                               |
-| ূ                       | `U`, `oo`   | ু                |                               |
+| ূ                       | `oo`        | ু ৌ ও             |                               |
 | ৃ                       | `rri`, `Ri` |                 |                               |
 | ে                      | `e`         |                 |                               |
 | ৈ                      | `oi`        | ই, োই            |                               |
