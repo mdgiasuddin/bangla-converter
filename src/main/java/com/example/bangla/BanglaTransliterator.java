@@ -39,7 +39,7 @@ public class BanglaTransliterator {
             "kk", "ক্ক", "x", "ক্স", "nn", "ন্ন", "cc", "চ্চ", "cch", "চ্ছ", "ddh", "দ্ধ", "ksh", "ক্ষ", "kkh", "ক্ষ", "t`", "ৎ", "tt", "ত্ত", "tth", "ত্থ",
             "dd", "দ্দ", "pp", "প্প", "bb", "ব্ব", "vv", "ভ্য", "mm", "ম্ম", "ll", "ল্ল", "ss", "শ্ব",
             "NG", "ঞ", "gg", "জ্ঞ", "nk", "ঙ্ক", "nkh", "ঙ্খ", "nj", "ঞ্জ", "njh", "ঞ্ঝ", "nc", "ঞ্চ", "nch", "ঞ্ছ",
-            "ngk", "ঙ্ক", "ngkh", "ঙ্খ", "ngg", "ঙ্গ", "nggh", "ঙ্ঘ");
+            "ngk", "ঙ্ক", "ngkh", "ঙ্খ", "ngg", "ঙ্গ", "nggh", "ঙ্ঘ", "ndh", "ন্ধ");
 
     // Vowels: [independent form, vowel sign (kar)]
     static final Map<String, String[]> V = new HashMap<>();
