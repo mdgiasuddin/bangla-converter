@@ -129,7 +129,7 @@ spelling, the next ones are alternates.
 | ক্ষ, খ্য, ক্ষ্য       | `kkh`          |
 | খ, ক্ষ          | `kh`           |
 | ঙ্ক, ংক          | `ngk`          |
-| ঙ্খ, ংখ, ংখ্য       | `nkh`, `ngkh`  |
+| ঙ্খ, ংখ, ংখ্য, ঙ্ক্ষ    | `nkh`, `ngkh`  |
 | ঙ্গ, ংগ          | `ngg`          |
 | ঙ্ঘ, ংঘ          | `nggh`         |
 | চ্চ, চ্য          | `cc`           |
