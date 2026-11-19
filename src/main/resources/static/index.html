@@ -103,6 +103,17 @@
             display: none
         }
 
+        /* the typed Roman letters, pinned above the scrolling list */
+        #typed {
+            padding: 5px 10px;
+            border-bottom: 1px solid var(--line);
+            background: var(--accbg);
+            color: var(--acc);
+            font: 600 14px ui-monospace, Menlo, Consolas, monospace;
+            letter-spacing: .3px;
+            overflow-wrap: anywhere
+        }
+
         #cand {
             list-style: none;
             margin: 0;
@@ -276,12 +287,13 @@
     <div class="gb" id="gbody"></div>
 </dialog>
 <div id="pop" hidden>
+    <div id="typed" aria-label="Typed letters"></div>
     <ul id="cand" role="listbox"></ul>
     <div class="hint">↑ ↓ choose · Space / Enter confirm · Esc keep Roman</div>
 </div>
 <script>
     const $ = id => document.getElementById(id);
-    const ed = $('ed'), pop = $('pop'), cand = $('cand');
+    const ed = $('ed'), pop = $('pop'), cand = $('cand'), typedEl = $('typed');
     ed.contentEditable = 'plaintext-only';
     if (ed.contentEditable !== 'plaintext-only') ed.contentEditable = 'true';
 
@@ -462,6 +474,7 @@
             };
             return li;
         }));
+        typedEl.textContent = roman;                           // the Roman letters you typed, always visible
         pop.hidden = false;
         const rs = comp.span.getClientRects(), r = rs.length ? rs[rs.length - 1] : comp.span.getBoundingClientRect();
         pop.style.left = Math.max(4, Math.min(r.left, innerWidth - pop.offsetWidth - 8)) + 'px';
