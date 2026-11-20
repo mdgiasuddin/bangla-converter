@@ -54,11 +54,6 @@ and the second is the alternate suggestion.
 | জ       | `j`         | also reachable from `z` (see §6)                         |
 | ঝ       | `jh`        |                                                          |
 | ঞ       | `NG`        |                                                          |
-| ট       | `T`         |                                                          |
-| ঠ       | `Th`        |                                                          |
-| ড       | `D`         |                                                          |
-| ঢ       | `Dh`        |                                                          |
-| ণ       | `N`         |                                                          |
 | ত       | `t`         |                                                          |
 | থ       | `th`        |                                                          |
 | দ       | `d`         |                                                          |
@@ -73,7 +68,6 @@ and the second is the alternate suggestion.
 | র       | `r`         |                                                          |
 | ল       | `l`         |                                                          |
 | শ       | `sh`        |                                                          |
-| ষ       | `S`         |                                                          |
 | স       | `s`         |                                                          |
 | হ       | `h`         |                                                          |
 | ড়       | `r`         | no direct key; matched via the `r` / `rh` group (see §6) |
@@ -146,7 +140,7 @@ spelling, the next ones are alternates.
 | ত্থ, থ্য, ঠ্য       | `tth`          |
 | ত্ত,ত্ম,ত্ব,ত্য,ট্ট,ট্য,ত্ত্ব | `tt`           |
 | থ, ঠ          | `th`           |
-| দ, ড, দ্ব       | `d`            |
+| দ, ড          | `d`            |
 | দ্দ, ড্ড, দ্য, দ্ব, ড্য | `dd`           |
 | দ্ধ, ধ্য, ঢ্য       | `ddh`          |
 | ধ, ঢ          | `dh`           |
@@ -158,8 +152,9 @@ spelling, the next ones are alternates.
 | য়, য          | `y`            |
 | র, ড়, ঢ়       | `r`, `rh`      |
 | ল্ল, ল্য          | `ll`           |
-| শ্ব, শ্ম, স্ম, স্ব    | `ss`           |
-| স, শ, ষ       | `s`, `sh`      |
+| শ্ব, স্ব, শ্ম, স্ম,   | `ss`           |
+| স, শ, ষ       | `s`            |
+| শ, ষ          | `sh`           |
 
 ---
 
@@ -181,6 +176,8 @@ spelling, the next ones are alternates.
 | শ্মশান          | sosan                          |
 | স্মৃতি           | sriti                          |
 | সংগ্রাম          | songram, sonram                |
+| ব্যর্থ           | barth, byrth                   |
+| ব্যক্তি           | bakti, bykti                   |
 
 ## Examples
 

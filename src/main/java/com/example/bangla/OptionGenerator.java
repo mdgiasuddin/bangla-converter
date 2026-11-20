@@ -28,11 +28,12 @@ public class OptionGenerator {
     private static final Map<String, String[]> GROUP = new HashMap<>();
 
     static {
-        g("স,শ,ষ", "s", "sh");
+        g("স,শ,ষ", "s");
+        g("শ,ষ", "sh");
         g("ন,ণ", "n");
         g("ত,ট", "t");
         g("থ,ঠ", "th");
-        g("দ,ড,দ্ব", "d");
+        g("দ,ড", "d");
         g("ধ,ঢ", "dh");
         g("র,ড়,ঢ়", "r", "rh");
         g("জ,য", "j", "z");
@@ -61,7 +62,7 @@ public class OptionGenerator {
         g("ব্ব,ব্য", "bb");
         g("ম্ম,ম্য", "mm");
         g("ল্ল,ল্য", "ll");
-        g("শ্ব,শ্ম,স্ম,স্ব", "ss");
+        g("শ্ব,স্ব,শ্ম,স্ম", "ss");
     }
 
     // Vowel signs after a consonant. For "o" the first option is "" (inherent vowel)
@@ -130,9 +131,13 @@ public class OptionGenerator {
                 if (k.equals("r") && !hasVowel && i + 1 < toks.size() && toks.get(i + 1).equals("y")) {
                     cons = cons.stream().map(c -> c.equals("র") ? "র\u200D" : c).toList();    // র + ZWJ
                 }
-                String pre = join ? "্" : "";
                 List<String> alts = new ArrayList<>();
-                for (String v : vows) for (String c : cons) alts.add(pre + c + v);   // vowel-major
+                for (String v : vows) {
+                    for (String c : cons) {
+                        if (join) alts.add("্" + c + v);   // joined (conjunct), same as the direct conversion
+                        alts.add(c + v);                    // separate letter
+                    }
+                }
                 units.add(alts);
                 join = !hasVowel && i + 1 < toks.size() && C.containsKey(toks.get(i + 1));
             } else {
