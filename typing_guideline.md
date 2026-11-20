@@ -181,6 +181,8 @@ spelling, the next ones are alternates.
 | শ্মশান          | sosan                          |
 | স্মৃতি           | sriti                          |
 | সংগ্রাম          | songram, sonram                |
+| ব্যর্থ           | barth, byrth                   |
+| ব্যক্তি           | bakti, bykti                   |
 
 ## Examples
 

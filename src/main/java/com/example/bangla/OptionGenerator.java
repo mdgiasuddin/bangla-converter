@@ -130,9 +130,13 @@ public class OptionGenerator {
                 if (k.equals("r") && !hasVowel && i + 1 < toks.size() && toks.get(i + 1).equals("y")) {
                     cons = cons.stream().map(c -> c.equals("র") ? "র\u200D" : c).toList();    // র + ZWJ
                 }
-                String pre = join ? "্" : "";
                 List<String> alts = new ArrayList<>();
-                for (String v : vows) for (String c : cons) alts.add(pre + c + v);   // vowel-major
+                for (String v : vows) {
+                    for (String c : cons) {
+                        if (join) alts.add("্" + c + v);   // joined (conjunct), same as the direct conversion
+                        alts.add(c + v);                    // separate letter
+                    }
+                }
                 units.add(alts);
                 join = !hasVowel && i + 1 < toks.size() && C.containsKey(toks.get(i + 1));
             } else {
