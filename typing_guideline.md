@@ -150,7 +150,8 @@ spelling, the next ones are alternates.
 | ব্ব, ব্য          | `bb`           |
 | ম্ম, ম্য          | `mm`           |
 | য়, য          | `y`            |
-| র, ড়, ঢ়       | `r`, `rh`      |
+| র, ড়, ঢ়       | `r`            |
+| ড়, ঢ়          | `rh`           |
 | ল্ল, ল্য          | `ll`           |
 | শ্ব, স্ব, শ্ম, স্ম,   | `ss`           |
 | স, শ, ষ       | `s`            |
@@ -178,6 +179,7 @@ spelling, the next ones are alternates.
 | সংগ্রাম          | songram, sonram                |
 | ব্যর্থ           | barth, byrth                   |
 | ব্যক্তি           | bakti, bykti                   |
+| দ্বারা           | dara                           |
 
 ## Examples
 
