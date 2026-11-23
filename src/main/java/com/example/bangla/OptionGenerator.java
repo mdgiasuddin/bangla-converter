@@ -40,15 +40,14 @@ public class OptionGenerator {
         g("জ,য", "j", "z");
         g("য়,য", "y");
         g("খ,ক্ষ", "kh");
-        g("ঞ,ঙ", "NG");
         g("ঞ্জ,ন্জ", "nj");
         g("ঞ্ঝ,ন্ঝ", "njh");
         g("ঞ্চ,ন্চ", "nc");
         g("ঞ্ছ,ন্ছ", "nch");
         g("ঙ্ক,ংক", "nk", "ngk");
         g("ঙ্খ,ংখ,ংখ্য,ঙ্ক্ষ", "nkh", "ngkh");
-        g("ঙ্গ,ংগ", "ngg");
-        g("ঙ্ঘ,ংঘ", "nggh");
+        g("ং,ঙ্গ,ঙ,ংগ,ংজ্ঞ", "ng");
+        g("ঙ্ঘ,ংঘ,ংহ", "ngh");
         g("ক্ক,ক্ব,ক্য", "kk");
         g("ক্ষ,খ্য,ক্ষ্য", "kkh");
         g("জ্ঞ,গ্গ,গ্য,গ্ম", "gg");
@@ -69,16 +68,16 @@ public class OptionGenerator {
     // Vowel signs after a consonant. For "o" the first option is "" (inherent vowel)
     private static final Map<String, String[]> SIGN = Map.ofEntries(
             Map.entry("a", new String[]{"া"}), Map.entry("i", new String[]{"ি", "ী"}),
-            Map.entry("I", new String[]{"ী", "ি"}), Map.entry("ee", new String[]{"ী", "ি"}),
+            Map.entry("ee", new String[]{"ী", "ি"}),
             Map.entry("u", new String[]{"ু", "ূ"}),
             Map.entry("oo", new String[]{"ূ", "ু", "ও", "ৌ"}), Map.entry("e", new String[]{"ে"}),
             Map.entry("oi", new String[]{"ৈ", "ই", "োই"}), Map.entry("ou", new String[]{"ৌ", "উ", "োউ"}),
-            Map.entry("O", new String[]{"ো"}), Map.entry("rri", new String[]{"ৃ"}),
+            Map.entry("rri", new String[]{"ৃ"}),
             Map.entry("Ri", new String[]{"ৃ"}), Map.entry("o", new String[]{"", "ো"}));
 
     // Independent vowels (word start, or after another vowel)
     private static final Map<String, String[]> INDEP = Map.ofEntries(
-            Map.entry("a", new String[]{"আ", "অ", "য়া"}), Map.entry("i", new String[]{"ই", "ঈ"}),
+            Map.entry("a", new String[]{"আ", "য়া"}), Map.entry("i", new String[]{"ই", "ঈ"}),
             Map.entry("I", new String[]{"ঈ", "ই"}), Map.entry("ee", new String[]{"ঈ", "ই"}),
             Map.entry("u", new String[]{"উ", "ঊ"}), Map.entry("oo", new String[]{"ঊ", "উ"}),
             Map.entry("e", new String[]{"এ"}), Map.entry("oi", new String[]{"ঐ"}),
@@ -119,9 +118,8 @@ public class OptionGenerator {
         boolean join = false;                                    // next consonant forms a conjunct
         for (int i = 0; i < toks.size(); i++) {
             String k = toks.get(i);
-            boolean ngVowel = k.equals("ng") && i + 1 < toks.size() && isVowel(toks.get(i + 1));
-            if (C.containsKey(k) || ngVowel) {
-                List<String> cons = ngVowel ? new ArrayList<>(List.of("ঙ", "ঙ্গ")) : consonantAlternatives(k);
+            if (C.containsKey(k)) {
+                List<String> cons = consonantAlternatives(k);
                 List<String> vows = List.of("");
                 boolean hasVowel = false;
                 if (i + 1 < toks.size() && isVowel(toks.get(i + 1))) {
@@ -144,7 +142,6 @@ public class OptionGenerator {
             } else {
                 join = false;
                 if (isVowel(k)) units.add(Arrays.asList(INDEP.get(k)));
-                else if (k.equals("ng")) units.add(List.of("ং", "ঙ"));
                 else if (X.containsKey(k)) units.add(List.of(X.get(k)));
                 else if (!k.equals("`")) {
                     char ch = k.charAt(0);

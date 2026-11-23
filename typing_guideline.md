@@ -9,20 +9,19 @@ and the second is the alternate suggestion.
 
 ## 1. Independent vowels (word start, or after another vowel)
 
-| Bengali | English key | Alternate       | Notes           |
-|---------|-------------|-----------------|-----------------|
-| অ       | `o`         |                 | default for `o` |
-| আ       | `a`         | `o` → অ         |                 |
-| য়া       | `a`         |                 |                 |
-| ই       | `i`         |                 | alternate: ঈ    |
-| ঈ       | `I`, `ee`   |                 | alternate: ই    |
-| উ       | `u`         |                 | alternate: ঊ    |
-| ঊ       | `oo`        |                 | alternate: উ    |
-| ঋ       | `rri`, `Ri` |                 |                 |
-| এ       | `e`         |                 |                 |
-| ঐ       | `oi`        |                 |                 |
-| ও       | `O`         | `o` (alternate) |                 |
-| ঔ       | `ou`        |                 |                 |
+| Bengali | English key | Notes           |
+|---------|-------------|-----------------|
+| অ       | `o`         | default for `o` |
+| আ       | `a`         |                 |                 
+| য়া       | `a`         |                 |                
+| ই, ঈ    | `i`, `ee`   |                 | 
+| উ       | `u`         |                 | 
+| ঊ       | `oo`        |                 | 
+| ঋ       | `rri`, `Ri` |                 |                 
+| এ       | `e`         |                 |                 
+| ঐ       | `oi`        |                 |                 
+| ও       | `o`         |                 |                 
+| ঔ       | `ou`        |                 |                 
 
 ## 2. Vowel signs (কার) after a consonant
 
@@ -93,8 +92,8 @@ and the second is the alternate suggestion.
 | ক্ষ       | `ksh`, `kkh` |
 | ঙ্ক       | `nk`, `ngk`  |
 | ঙ্খ       | `ngkh`       |
-| ঙ্গ       | `ngg`        |
-| ঙ্ঘ       | `nggh`       |
+| ঙ্গ       | `ng`         |
+| ঙ্ঘ       | `ngh`        |
 | চ্চ       | `cc`         |
 | জ্ঞ       | `gg`         |
 | ঞ্চ       | `nc`         |
@@ -124,8 +123,8 @@ spelling, the next ones are alternates.
 | খ, ক্ষ          | `kh`           |
 | ঙ্ক, ংক          | `ngk`          |
 | ঙ্খ, ংখ, ংখ্য, ঙ্ক্ষ    | `nkh`, `ngkh`  |
-| ঙ্গ, ংগ          | `ngg`          |
-| ঙ্ঘ, ংঘ          | `nggh`         |
+| ং,ঙ্গ,ঙ,ংগ,ংজ্ঞ     | `ng`           |
+| ঙ্ঘ, ংঘ, ংহ       | `ngh`          |
 | চ্চ, চ্য          | `cc`           |
 | চ্ছ             | `cch`          |
 | জ, য          | `j`, `z`       |
