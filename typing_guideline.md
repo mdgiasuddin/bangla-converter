@@ -9,20 +9,19 @@ and the second is the alternate suggestion.
 
 ## 1. Independent vowels (word start, or after another vowel)
 
-| Bengali | English key | Alternate       | Notes           |
-|---------|-------------|-----------------|-----------------|
-| অ       | `o`         |                 | default for `o` |
-| আ       | `a`         | `o` → অ         |                 |
-| য়া       | `a`         |                 |                 |
-| ই       | `i`         |                 | alternate: ঈ    |
-| ঈ       | `I`, `ee`   |                 | alternate: ই    |
-| উ       | `u`         |                 | alternate: ঊ    |
-| ঊ       | `oo`        |                 | alternate: উ    |
-| ঋ       | `rri`, `Ri` |                 |                 |
-| এ       | `e`         |                 |                 |
-| ঐ       | `oi`        |                 |                 |
-| ও       | `O`         | `o` (alternate) |                 |
-| ঔ       | `ou`        |                 |                 |
+| Bengali | English key | Notes           |
+|---------|-------------|-----------------|
+| অ       | `o`         | default for `o` |
+| আ       | `a`         |                 |                 
+| য়া       | `a`         |                 |                
+| ই, ঈ    | `i`, `ee`   |                 | 
+| উ       | `u`         |                 | 
+| ঊ       | `oo`        |                 | 
+| ঋ       | `rri`, `Ri` |                 |                 
+| এ       | `e`         |                 |                 
+| ঐ       | `oi`        |                 |                 
+| ও       | `o`         |                 |                 
+| ঔ       | `ou`        |                 |                 
 
 ## 2. Vowel signs (কার) after a consonant
 
@@ -54,11 +53,6 @@ and the second is the alternate suggestion.
 | জ       | `j`         | also reachable from `z` (see §6)                         |
 | ঝ       | `jh`        |                                                          |
 | ঞ       | `NG`        |                                                          |
-| ট       | `T`         |                                                          |
-| ঠ       | `Th`        |                                                          |
-| ড       | `D`         |                                                          |
-| ঢ       | `Dh`        |                                                          |
-| ণ       | `N`         |                                                          |
 | ত       | `t`         |                                                          |
 | থ       | `th`        |                                                          |
 | দ       | `d`         |                                                          |
@@ -73,7 +67,6 @@ and the second is the alternate suggestion.
 | র       | `r`         |                                                          |
 | ল       | `l`         |                                                          |
 | শ       | `sh`        |                                                          |
-| ষ       | `S`         |                                                          |
 | স       | `s`         |                                                          |
 | হ       | `h`         |                                                          |
 | ড়       | `r`         | no direct key; matched via the `r` / `rh` group (see §6) |
@@ -99,8 +92,8 @@ and the second is the alternate suggestion.
 | ক্ষ       | `ksh`, `kkh` |
 | ঙ্ক       | `nk`, `ngk`  |
 | ঙ্খ       | `ngkh`       |
-| ঙ্গ       | `ngg`        |
-| ঙ্ঘ       | `nggh`       |
+| ঙ্গ       | `ng`         |
+| ঙ্ঘ       | `ngh`        |
 | চ্চ       | `cc`         |
 | জ্ঞ       | `gg`         |
 | ঞ্চ       | `nc`         |
@@ -130,8 +123,8 @@ spelling, the next ones are alternates.
 | খ, ক্ষ          | `kh`           |
 | ঙ্ক, ংক          | `ngk`          |
 | ঙ্খ, ংখ, ংখ্য, ঙ্ক্ষ    | `nkh`, `ngkh`  |
-| ঙ্গ, ংগ          | `ngg`          |
-| ঙ্ঘ, ংঘ          | `nggh`         |
+| ং,ঙ্গ,ঙ,ংগ,ংজ্ঞ     | `ng`           |
+| ঙ্ঘ, ংঘ, ংহ       | `ngh`          |
 | চ্চ, চ্য          | `cc`           |
 | চ্ছ             | `cch`          |
 | জ, য          | `j`, `z`       |
@@ -146,7 +139,7 @@ spelling, the next ones are alternates.
 | ত্থ, থ্য, ঠ্য       | `tth`          |
 | ত্ত,ত্ম,ত্ব,ত্য,ট্ট,ট্য,ত্ত্ব | `tt`           |
 | থ, ঠ          | `th`           |
-| দ, ড, দ্ব       | `d`            |
+| দ, ড          | `d`            |
 | দ্দ, ড্ড, দ্য, দ্ব, ড্য | `dd`           |
 | দ্ধ, ধ্য, ঢ্য       | `ddh`          |
 | ধ, ঢ          | `dh`           |
@@ -156,10 +149,12 @@ spelling, the next ones are alternates.
 | ব্ব, ব্য          | `bb`           |
 | ম্ম, ম্য          | `mm`           |
 | য়, য          | `y`            |
-| র, ড়, ঢ়       | `r`, `rh`      |
+| র, ড়, ঢ়       | `r`            |
+| ড়, ঢ়          | `rh`           |
 | ল্ল, ল্য          | `ll`           |
-| শ্ব, শ্ম, স্ম, স্ব    | `ss`           |
-| স, শ, ষ       | `s`, `sh`      |
+| শ্ব, স্ব, শ্ম, স্ম,   | `ss`           |
+| স, শ, ষ       | `s`            |
+| শ, ষ          | `sh`           |
 
 ---
 
@@ -183,6 +178,7 @@ spelling, the next ones are alternates.
 | সংগ্রাম          | songram, sonram                |
 | ব্যর্থ           | barth, byrth                   |
 | ব্যক্তি           | bakti, bykti                   |
+| দ্বারা           | dara                           |
 
 ## Examples
 

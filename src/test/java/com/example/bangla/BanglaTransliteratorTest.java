@@ -43,7 +43,7 @@ class BanglaTransliteratorTest {
     @Test
     void everyCombination() {
         var list = s.candidates("sonar").candidates();
-        assertEquals(61, list.size());                 // 6 x 2 x 3 combinations + the raw word
+        assertEquals(37, list.size());                 // 6 x 2 x 3 combinations + the raw word
         assertTrue(list.contains("সোনার"));
     }
 
@@ -55,7 +55,7 @@ class BanglaTransliteratorTest {
 
     @Test
     void yaPhola() {
-        assertEquals("ক্যাট", t.convert("kyaT"));
+        assertEquals("ক্যাত", t.convert("kyat"));
     }
 
     @Test
